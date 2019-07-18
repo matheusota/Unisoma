@@ -1,0 +1,116 @@
+IDENTIFICAÇÃO,TIPO DE ATENDIMENTO,QTD. DE ATENDIMENTO SEMANAL,FREQUENCIA DE ATENDIMENTO,PODE SER REAGENDADO?
+Criança 01,Fonoaudiologia,1,Semanal,Não
+Criança 01,Nutrição ,1,Semanal,Não
+Criança 01,Terapia Ocupacional,1,Semanal,Não
+Criança 01,Fisioterapia,1,Semanal,Não
+Criança 01,Neurologia,1,Semanal,Não
+Criança 02,Fonoaudiologia,1,Semanal,Não
+Criança 02,Nutrição ,1,Quinzenal,Não
+Criança 02,Terapia Ocupacional,1,Semanal,Não
+Criança 02,Fisioterapia,1,Semanal,Não
+Criança 02,Neurologia,1,Semanal,Não
+Criança 03,Fonoaudiologia,2,Semanal,Não
+Criança 03,Nutrição ,2,Semanal,Não
+Criança 03,Terapia Ocupacional,2,Semanal,Não
+Criança 03,Fisioterapia,2,Semanal,Não
+Criança 03,Neurologia,2,Semanal,Não
+Criança 04,Fonoaudiologia,3,Semanal,Não
+Criança 04,Nutrição ,0,Semanal,Não
+Criança 04,Terapia Ocupacional,2,Semanal,Sim
+Criança 04,Fisioterapia,0,Semanal,Não
+Criança 04,Neurologia,1,Semanal,Não
+Criança 05,Fonoaudiologia,0,Semanal,Não
+Criança 05,Nutrição ,0,Semanal,Não
+Criança 05,Terapia Ocupacional,5,Semanal,Não
+Criança 05,Fisioterapia,4,Semanal,Não
+Criança 05,Neurologia,2,Semanal,Sim
+Criança 06,Fonoaudiologia,0,Semanal,Não
+Criança 06,Nutrição ,1,Quinzenal,Não
+Criança 06,Terapia Ocupacional,3,Semanal,Sim
+Criança 06,Fisioterapia,3,Semanal,Não
+Criança 06,Neurologia,2,Semanal,Não
+Criança 07,Fonoaudiologia,2,Semanal,Não
+Criança 07,Nutrição ,2,Semanal,Sim
+Criança 07,Terapia Ocupacional,1,Semanal,Sim
+Criança 07,Fisioterapia,0,Semanal,Não
+Criança 07,Neurologia,3,Semanal,Não
+Criança 08,Fonoaudiologia,0,Semanal,Sim
+Criança 08,Nutrição ,1,Semanal,Não
+Criança 08,Terapia Ocupacional,4,Semanal,Não
+Criança 08,Fisioterapia,5,Semanal,Sim
+Criança 08,Neurologia,1,Quinzenal,Sim
+Criança 09,Fonoaudiologia,1,Quinzenal,Não
+Criança 09,Nutrição ,1,Quinzenal,Não
+Criança 09,Terapia Ocupacional,1,Quinzenal,Não
+Criança 09,Fisioterapia,1,Quinzenal,Não
+Criança 09,Neurologia,1,Quinzenal,Não
+Criança 10,Fonoaudiologia,1,Quinzenal,Não
+Criança 10,Nutrição ,1,Quinzenal,Não
+Criança 10,Terapia Ocupacional,1,Quinzenal,Não
+Criança 10,Fisioterapia,1,Quinzenal,Não
+Criança 10,Neurologia,1,Quinzenal,Não
+Criança 11,Fonoaudiologia,1,Semanal,Não
+Criança 11,Nutrição ,1,Semanal,Não
+Criança 11,Terapia Ocupacional,1,Semanal,Não
+Criança 11,Fisioterapia,1,Semanal,Não
+Criança 11,Neurologia,1,Semanal,Não
+Criança 12,Fonoaudiologia,1,Semanal,Não
+Criança 12,Nutrição ,1,Quinzenal,Não
+Criança 12,Terapia Ocupacional,1,Semanal,Não
+Criança 12,Fisioterapia,1,Semanal,Não
+Criança 12,Neurologia,1,Semanal,Não
+Criança 13,Fonoaudiologia,2,Semanal,Não
+Criança 13,Nutrição ,2,Semanal,Não
+Criança 13,Terapia Ocupacional,2,Semanal,Não
+Criança 13,Fisioterapia,2,Semanal,Não
+Criança 13,Neurologia,2,Semanal,Não
+Criança 14,Fonoaudiologia,3,Semanal,Não
+Criança 14,Nutrição ,0,Semanal,Não
+Criança 14,Terapia Ocupacional,2,Semanal,Não
+Criança 14,Fisioterapia,0,Semanal,Não
+Criança 14,Neurologia,1,Semanal,Não
+Criança 15,Fonoaudiologia,0,Semanal,Não
+Criança 15,Nutrição ,0,Semanal,Não
+Criança 15,Terapia Ocupacional,5,Semanal,Não
+Criança 15,Fisioterapia,4,Semanal,Não
+Criança 15,Neurologia,2,Semanal,Sim
+Criança 16,Fonoaudiologia,0,Semanal,Não
+Criança 16,Nutrição ,1,Quinzenal,Não
+Criança 16,Terapia Ocupacional,3,Semanal,Sim
+Criança 16,Fisioterapia,3,Semanal,Não
+Criança 16,Neurologia,2,Semanal,Não
+Criança 17,Fonoaudiologia,2,Semanal,Não
+Criança 17,Nutrição ,2,Semanal,Sim
+Criança 17,Terapia Ocupacional,1,Semanal,Sim
+Criança 17,Fisioterapia,0,Semanal,Não
+Criança 17,Neurologia,3,Semanal,Não
+Criança 18,Fonoaudiologia,0,Semanal,Sim
+Criança 18,Nutrição ,1,Semanal,Não
+Criança 18,Terapia Ocupacional,4,Semanal,Não
+Criança 18,Fisioterapia,5,Semanal,Sim
+Criança 18,Neurologia,1,Quinzenal,Sim
+Criança 19,Fonoaudiologia,1,Quinzenal,Não
+Criança 19,Nutrição ,1,Quinzenal,Não
+Criança 19,Terapia Ocupacional,1,Quinzenal,Não
+Criança 19,Fisioterapia,1,Quinzenal,Não
+Criança 19,Neurologia,1,Quinzenal,Não
+Criança 20,Fonoaudiologia,1,Quinzenal,Não
+Criança 20,Nutrição ,1,Quinzenal,Não
+Criança 20,Terapia Ocupacional,1,Quinzenal,Não
+Criança 20,Fisioterapia,1,Quinzenal,Não
+Criança 20,Neurologia,1,Quinzenal,Não
+Criança 21,Fonoaudiologia,5,Semanal,Não
+Criança 21,Nutrição ,5,Semanal,Não
+Criança 21,Terapia Ocupacional,5,Semanal,Não
+Criança 21,Fisioterapia,5,Semanal,Não
+Criança 21,Neurologia,5,Semanal,Não
+4157,Fisioterapia,2,Semanal,Não
+4157,Terapia Ocupacional,1,Semanal,Não
+4157,Fonoaudiologia,1,Semanal,Não
+4157,Pedagogia,1,Semanal,Não
+4157,Psicologia,1,Semanal,Não
+1234,Pedagogia,1,Semanal,Não
+1234,Fisioterapia,2,Semanal,Não
+1234,Fonoaudiologia,1,Semanal,Não
+1234,Terapia Ocupacional,1,Semanal,Não
+1234,Nutrição ,1,Quinzenal,Não
