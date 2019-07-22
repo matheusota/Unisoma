@@ -31,9 +31,15 @@ class Instance:
             self.workers.append(w)
     
     def __str__(self):
-        s = "Kids:\n"
+        s = "---------------------\n"
+        s += "||      KIDS       ||\n"
+        s += "---------------------\n" 
         s += str(self.kids)
-        s += "\nWorkers:\n"
+
+        s += "\n---------------------\n"
+        s += "||     WORKERS     ||\n"
+        s += "---------------------\n" 
+        
         for worker in self.workers:
             s += str(worker)
         
