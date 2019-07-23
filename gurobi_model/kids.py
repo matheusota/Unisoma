@@ -128,6 +128,9 @@ class Kids:
     def __getitem__(self, key):
         return self.kids[key]
     
+    def __len__(self):
+        return len(self.kids)
+        
     def __str__(self):
         s = ""
         for kid in self.kids.values():
