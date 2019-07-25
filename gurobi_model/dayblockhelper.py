@@ -28,4 +28,3 @@ def getHourNumber(hours):
         x -= 2
     
     return x
-

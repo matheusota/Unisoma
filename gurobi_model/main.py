@@ -1,5 +1,6 @@
 from instance import *
 import argparse
+from model import *
 
 # parse arguments
 parser = argparse.ArgumentParser(description=__doc__)
@@ -11,3 +12,5 @@ model = args.model
 instance = Instance()
 instance.readInstance("../data")
 print(instance)
+
+runModel(instance)

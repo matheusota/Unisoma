@@ -1,12 +1,19 @@
 from gurobipy import *
 import time
 
+def boolToInt(x):
+    if x:
+        return 1
+    else:
+        return 0
+
 def runModel(instance):
     try:
         # Create a new model
         m = Model("kids_scheduling")
 
         # Create variables
+        # x_{k, w, d, h} => kid k got scheduled to worker w in day d and hour h
         x = m.addVars( \
             # kids
             range(len(instance.kids)), \
@@ -20,6 +27,7 @@ def runModel(instance):
             name="x" \
         )
 
+        # y_k => kid k has all the necessary attendances
         y = m.addVars(range(len(instance.kids)), vtype=GRB.BINARY, name="y")
 
         workers_type = [
@@ -30,6 +38,7 @@ def runModel(instance):
             "Pedagogia"
         ]
 
+        # z_{k, t, d, p} => kid k has an attendance of type t in day d and period p
         z = m.addVars( \
             # kids
             range(len(instance.kids)), \
@@ -43,9 +52,12 @@ def runModel(instance):
             name="z" \
         )
 
+        # v_{k, t, d} => kid k has an attendment of type t at day d
         v = m.addVars( \
             # kids
             range(len(instance.kids)), \
+            # workers_type
+            range(len(workers_type)), \
             # days
             range(5), \
             vtype=GRB.BINARY, \
@@ -56,7 +68,7 @@ def runModel(instance):
 
         # Set objective
         m.setObjective(
-            quicksum([y[i] for i in range(len(instance.kids))]) + \
+            quicksum([y[k] for k in range(len(instance.kids))]) + \
             quicksum([-alpha * z[(k, w, d, p)] for k in range(len(instance.kids)) \
                 for w in range(len(workers_type)) \
                 for d in range(5) \
@@ -66,7 +78,7 @@ def runModel(instance):
         )
 
         # Add worker availability constraint
-        m.addConstrs(((quicksum(x[(k, w, d, h)] for k in range(len(instance.kids))]) <= instance.workers[w][d][h]) \
+        m.addConstrs(((quicksum([x[(k, w, d, h)] for k in range(len(instance.kids))]) <= boolToInt(instance.workers[w].available[d][h])) \
             for w in range(len(instance.workers)) \
             for d in range(5) \
             for h in range(18)), \
@@ -74,7 +86,7 @@ def runModel(instance):
         )
 
         # Add kid availability constraint
-        m.addConstrs(((quicksum(x[(k, w, d, h)] for w in range(len(instance.workers))]) <= instance.kids[k][d][h]) \
+        m.addConstrs(((quicksum([x[(k, w, d, h)] for w in range(len(instance.workers))]) <= boolToInt(instance.kids[k].available[d][h])) \
             for k in range(len(instance.kids)) \
             for d in range(5) \
             for h in range(18)), \
@@ -83,35 +95,31 @@ def runModel(instance):
 
         # Add z constraints
         m.addConstrs((
-            (quicksum(x[(k, w, d, h)] \
+            ((quicksum([x[(k, w, d, h)] \
+                for h in range(9) \
                 for w in range(len(instance.workers)) \
-                for h in range(9))]
-            ) <= 200 * z[(k, w, d, 0)]) \
+                if instance.workers[w].type == workers_type[t]])
+            ) <= 200 * z[(k, t, d, 0)]) \
             for k in range(len(instance.kids)) \
+            for t in range(len(workers_type)) \
             for d in range(5)), \
             name = "z_morning" \
         )
 
         m.addConstrs((
-            (quicksum([x[(k, w, d, h)] \
+            ((quicksum([x[(k, w, d, h)] \
+                for h in range(9, 18) \
                 for w in range(len(instance.workers)) \
-                for h in range(9, 18))]
-            ) <= 200 * z[(k, w, d, 1)]) \
+                if instance.workers[w].type == workers_type[t]])
+            ) <= 200 * z[(k, t, d, 1)]) \
             for k in range(len(instance.kids)) \
+            for t in range(len(workers_type)) \
             for d in range(5)), \
             name = "z_afternoon" \
         )
 
-        # add v constraints
-        m.addConstrs(((quicksum([x[(k, w, d, h)] for h in range(18))]) == v[(k, d)]) \
-            for k in range(len(instance.kids)) \
-            for t in len(workers_type) \
-            for d in range(5)), \
-            name = "v_constraints" \
-        )
-
         # add periods limit constraints
-        m.addConstrs(((z[(k, t, d, 0)] + z[(k, t, d, 1)] <= v[(k, d)]) \
+        m.addConstrs(((z[(k, t, d, 0)] + z[(k, t, d, 1)] == v[(k, t, d)]) \
             for k in range(len(instance.kids)) \
             for t in range(len(workers_type)) \
             for d in range(5)), \
@@ -120,34 +128,55 @@ def runModel(instance):
 
         # Add necessary attendaces constraint
         m.addConstrs((
-            (quicksum([x[(k, w, d, h)] \
-                for d in range(5), \
-                for h in range(18), \
+            ((quicksum([x[(k, w, d, h)] \
+                for d in range(5) \
+                for h in range(18) \
                 for w in range(len(instance.workers)) \
-                if instance.workers[w].type == t]
-            ) <= instance.kids.needs[t] * y[k]) \
+                if instance.workers[w].type == workers_type[t]])
+            ) == instance.kids[k].getAttendanceNumber(workers_type[t]) * y[k]) \
             for k in range(len(instance.kids)) \
-            for t in range(workers_type)), \
+            for t in range(len(workers_type))),
             name = "necessary_attendances" \
         )
 
         # Add days intervals constraints
-        m.addConstrs(((quicksum([(1 - v[(k, d)]) for d in range(d1, d2 + 1)) >= v[(k, d1)] + v[(k, d2)] - 1 \
+        m.addConstrs(((quicksum([(1 - v[(k, t, d)]) for d in range(d1, d2 + 1)]) >= v[(k, t, d1)] + v[(k, t, d2)] - 1) \
             for d1 in range(5) \
             for d2 in range(d1 + 1, 5) \
-            for k in range(len(instance.kids)), \
+            for t in range(len(workers_type)) \
+            for k in range(len(instance.kids))), \
             name = "day_interval" \
         )
 
         start_time = time.time()
         m.optimize()
-
+        
         for k in range(len(instance.kids)):
             for w in range(len(instance.workers)):
                 for d in range(5):
                     for h in range(18):
-                        if x[(k, w, d, h)].x > 0:
+                        if x[(k, w, d, h)].x > 0.1:
                             print("x[" + str((k, w, d, h)) + "] = " + str(x[(k, w, d, h)].x))
+        print()
+
+        for k in range(len(instance.kids)):
+            if y[k].x > 0.1:
+                print("y[" + str(k) + "] = " + str(y[k].x))
+        print()
+
+        for k in range(len(instance.kids)):
+            for t in range(len(workers_type)):
+                for d in range(5):
+                    for p in range(2):
+                        if z[(k, t, d, p)].x > 0.1:
+                            print("z[" + str((k, t, d, p)) + "] = " + str(z[(k, t, d, p)].x))
+        print()
+        
+        for k in range(len(instance.kids)):
+            for t in range(len(workers_type)):
+                for d in range(5):
+                    if v[(k, t, d)].x > 0.1:
+                        print("v[" + str((k, t, d)) + "] = " + str(v[(k, t, d)].x))
         
     except GurobiError as e:
         print('Error code ' + str(e.errno) + ": " + str(e))

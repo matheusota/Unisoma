@@ -1,18 +1,10 @@
 from dayblockhelper import *
 
-class Attendance:
-    def __init__(self, type, number):
-        self.type = type
-        self.number = number
-
-    def __str__(self):
-        return "(" + self.type + ", " + str(self.number) + ")"
-
 class Kid:
     def __init__(self, name):
         self.name = name
         self.available = [[False for _ in range(18)] for _ in range(5)]
-        self.attendances = []
+        self.attendances = {}
 
     # set a whole day availability to a given status
     def setDayAvailability(self, day, status):
@@ -51,7 +43,11 @@ class Kid:
 
     # add an attendance
     def addAttendance(self, type, number):
-        self.attendances.append(Attendance(type, number))
+        self.attendances[type] = number
+    
+    # get number of attendances
+    def getAttendanceNumber(self, type):
+        return self.attendances.get(type, 0)
     
     def __str__(self):
         s = "----------------------------------------\n"
@@ -60,15 +56,18 @@ class Kid:
         for i in range(5):
             s += str(self.available[i]) + "\n"
         s += "Attendances:\n"
-        for attendance in self.attendances:
-            s += str(attendance) + ", "
-        s += "\n"
+        for t in self.attendances:
+            s += "\t" + t + ", " + str(self.attendances[t]) + "\n"
+
+        if len(self.attendances) == 0: 
+            s += "\n"
         
         return s
 
 class Kids:
     def __init__(self):
         self.kids = {}
+        self.kids_names = []
     
     # get kids ids from the registers file
     def readKidsRegisters(self, filepath):
@@ -79,8 +78,12 @@ class Kids:
                 line = line.split(",")
                 
                 if i > 0:
-                    for j in range(5):
-                        self.kids[line[0]] = Kid(line[0])
+                    name = line[0]
+                    type = line[-1].replace("\n", "")
+
+                    if type == "Regular":
+                        self.kids[name] = Kid(name)
+                        self.kids_names.append(name)
                 
                 i += 1
     
@@ -99,7 +102,8 @@ class Kids:
                     start = line[3]
                     end = line[4]
 
-                    self.kids[name].setAvailability(day, period, start, end)
+                    if name in self.kids:
+                        self.kids[name].setAvailability(day, period, start, end)
                 
                 i += 1
     
@@ -126,7 +130,12 @@ class Kids:
     
     # rewrite [] operator
     def __getitem__(self, key):
-        return self.kids[key]
+        if type(key) == str:
+            return self.kids[key]
+        elif type(key == int):
+            return self.kids[self.kids_names[key]]
+        else:
+            return None
     
     def __len__(self):
         return len(self.kids)

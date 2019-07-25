@@ -28,6 +28,7 @@ class Worker:
     def __str__(self):
         s = "----------------------------------------\n"
         s += "Worker Name: " + self.name + "\n"
+        s += "Type: " + self.type + "\n"
         s += "Availability:\n"
         for i in range(5):
             s += str(self.available[i]) + "\n"
