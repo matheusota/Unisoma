@@ -162,6 +162,7 @@ def runModel(instance):
         for k in range(len(instance.kids)):
             if y[k].x > 0.1:
                 print("y[" + str(k) + "] = " + str(y[k].x))
+                #print(instance.kids[k])
         print()
 
         for k in range(len(instance.kids)):

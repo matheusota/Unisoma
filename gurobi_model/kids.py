@@ -81,9 +81,8 @@ class Kids:
                     name = line[0]
                     type = line[-1].replace("\n", "")
 
-                    if type == "Regular":
-                        self.kids[name] = Kid(name)
-                        self.kids_names.append(name)
+                    self.kids[name] = Kid(name)
+                    self.kids_names.append(name)
                 
                 i += 1
     
@@ -128,6 +127,20 @@ class Kids:
                 
                 i += 1
     
+    # remove kids with no attendances
+    def removeNoAttendancesKids(self):
+        keys = list(self.kids.keys())
+        new_names = []
+
+        for name in keys:
+            if len(self.kids[name].attendances) == 0:
+                del self.kids[name]
+            
+            else:
+                new_names.append(name)
+        
+        self.kids_names = new_names
+        
     # rewrite [] operator
     def __getitem__(self, key):
         if type(key) == str:

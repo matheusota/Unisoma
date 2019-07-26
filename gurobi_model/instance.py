@@ -13,6 +13,7 @@ class Instance:
         self.kids.readKidsRegisters(path + "/CadastroDaCrianca.csv")
         self.kids.readKidsAvailability(path + "/DisponibilidadeDaCrianca.csv")
         self.kids.readKidsAttendances(path + "/AtendimentoRegular.csv")
+        self.kids.removeNoAttendancesKids()
 
         # read the workers
         workers_files = [
